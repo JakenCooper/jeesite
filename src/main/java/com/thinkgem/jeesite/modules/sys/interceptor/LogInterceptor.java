@@ -29,28 +29,28 @@ public class LogInterceptor extends BaseService implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, 
 			Object handler) throws Exception {
-		if (logger.isDebugEnabled()){
+		/*if (logger.isDebugEnabled()){
 			long beginTime = System.currentTimeMillis();//1、开始时间  
 	        startTimeThreadLocal.set(beginTime);		//线程绑定变量（该数据只有当前请求的线程可见）  
 	        logger.debug("开始计时: {}  URI: {}", new SimpleDateFormat("hh:mm:ss.SSS")
 	        	.format(beginTime), request.getRequestURI());
-		}
+		}*/
 		return true;
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, 
 			ModelAndView modelAndView) throws Exception {
-		if (modelAndView != null){
+		/*if (modelAndView != null){
 			logger.info("ViewName: " + modelAndView.getViewName());
-		}
+		}*/
 	}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, 
 			Object handler, Exception ex) throws Exception {
 
-		// 保存日志
+		/*// 保存日志
 		LogUtils.saveLog(request, handler, ex, null);
 		
 		// 打印JVM信息。
@@ -63,7 +63,7 @@ public class LogInterceptor extends BaseService implements HandlerInterceptor {
 					(Runtime.getRuntime().maxMemory()-Runtime.getRuntime().totalMemory()+Runtime.getRuntime().freeMemory())/1024/1024); 
 	        //删除线程变量中的数据，防止内存泄漏
 	        startTimeThreadLocal.remove();
-		}
+		}*/
 		
 	}
 
