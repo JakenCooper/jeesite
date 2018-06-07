@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.thinkgem.jeesite.workflow.common.definition.Flow;
@@ -21,6 +22,7 @@ import com.thinkgem.jeesite.workflow.temp.LemonCache;
 import com.thinkgem.jeesite.workflow.utils.CommonUtils;
 
 @Controller
+@RequestMapping("${adminPath}")
 public class MainController {
 
 	@Autowired
@@ -39,12 +41,12 @@ public class MainController {
 		return "menu";
 	}
 	
-	@RequestMapping("${adminPath}/flow")
+	@RequestMapping("/flow")
 	public String flow(){
 		return "workflow/definition/flowindex";
 	}
 	
-	@RequestMapping("/node/view/add")
+	/*@RequestMapping("/node/view/add")
 	public String nodeviewadd(HttpServletRequest request){
 		request.setAttribute("flowid", request.getParameter("flowid"));
 		return "nodeadd";
@@ -108,7 +110,7 @@ public class MainController {
 		request.setAttribute("closetag", "1");
 		return "nodesecadd";
 	}
-	
+	*/
 	
 	
 	

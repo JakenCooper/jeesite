@@ -11,6 +11,16 @@ public class Node {
 	
 	private String desc;
 	
+	private String flowid;
+	
+	public String getFlowid() {
+		return flowid;
+	}
+
+	public void setFlowid(String flowid) {
+		this.flowid = flowid;
+	}
+
 	public String getDesc() {
 		return desc;
 	}

@@ -69,7 +69,7 @@ public class LoginController extends BaseController{
 			return "redirect:" + adminPath;
 		}
 //		return "modules/sys/sysLogin";
-		return "workflow/login/sysLogin";
+		return "a/workflow/login/sysLogin";
 	}
 
 	/**
@@ -119,14 +119,14 @@ public class LoginController extends BaseController{
 		}
 		
 //		return "modules/sys/sysLogin";
-		return "workflow/login/sysLogin";
+		return "a/workflow/login/sysLogin";
 	}
 	
 	
 	@RequestMapping("${adminPath}/logoff")
 	public String logoff(){
 		UserUtils.getSubject().logout();
-		return "workflow/login/sysLogin"; 
+		return "a/workflow/login/sysLogin"; 
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class LoginController extends BaseController{
 		}
 		
 //		return "modules/sys/sysIndex";
-		return "workflow/sysIndex";
+		return "a/workflow/sysIndex";
 	}
 	
 	/**

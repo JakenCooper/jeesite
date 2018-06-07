@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.thinkgem.jeesite.common.service.BaseService;
 import com.thinkgem.jeesite.common.utils.DateUtils;
 import com.thinkgem.jeesite.modules.sys.utils.LogUtils;
+import com.thinkgem.jeesite.workflow.controller.model.FlowWebReqException;
 
 /**
  * 日志拦截器
@@ -50,6 +51,11 @@ public class LogInterceptor extends BaseService implements HandlerInterceptor {
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, 
 			Object handler, Exception ex) throws Exception {
 
+		
+		if(ex instanceof FlowWebReqException){
+			request.setAttribute("reqResult", ((FlowWebReqException)ex).getReqResult());
+		}
+		
 		/*// 保存日志
 		LogUtils.saveLog(request, handler, ex, null);
 		
