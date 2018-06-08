@@ -9,7 +9,14 @@
 	<!-- Context ConfigLocation -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:/spring-context*.xml</param-value>
+		<!-- <param-value>classpath*:/spring-context*.xml</param-value> -->
+		<param-value>com.thinkgem.jeesite.workflow.config.WorkflowConfig</param-value>
+	</context-param>
+	<context-param>
+		<param-name>contextClass</param-name>
+        <param-value>
+            org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+        </param-value>
 	</context-param>
 	<listener>
 		<listener-class>com.thinkgem.jeesite.modules.sys.listener.WebContextListener</listener-class>

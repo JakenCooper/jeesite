@@ -88,6 +88,21 @@ public class Flow {
 		this.nodemap = nodemap;
 	}
 
+	
+	
+	/**
+	 * business related
+	 * */
+	private String bussTable;
+	
+
+	public String getBussTable() {
+		return bussTable;
+	}
+
+	public void setBussTable(String bussTable) {
+		this.bussTable = bussTable;
+	}
 
 	public static void main(String[] args) {
 		Node node1 = new Node("n1","n1");

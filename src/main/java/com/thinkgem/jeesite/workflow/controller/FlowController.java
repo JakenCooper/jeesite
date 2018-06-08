@@ -45,7 +45,9 @@ public class FlowController {
 	@RequestMapping(value="/flow/add",method=RequestMethod.POST)
 	public String flowadd(HttpServletRequest request,Model model){
 		String name = request.getParameter("name");
+		String bussTable = request.getParameter("bussTable");
 		Flow flow = defService.createFlow(name);
+		flow.setBussTable(bussTable);
 		LemonCache.getFlows().add(flow);
 		LemonCache.getFlowmap().put(flow.getId(), flow);
 		model.addAttribute("allflow", LemonCache.getFlows());

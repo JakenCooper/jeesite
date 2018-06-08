@@ -8,12 +8,25 @@ public class NodeSec {
 	
 	private String nextNodeId;
 	
+	private String nextNodeName;
+	
 	public NodeSec(String id, String nodeId, String nextNodeId) {
 		super();
 		this.id = id;
 		this.nodeId = nodeId;
 		this.nextNodeId = nextNodeId;
 	}
+	
+
+	public String getNextNodeName() {
+		return nextNodeName;
+	}
+
+
+	public void setNextNodeName(String nextNodeName) {
+		this.nextNodeName = nextNodeName;
+	}
+
 
 	public String getId() {
 		return id;

@@ -136,9 +136,15 @@
 			            	
 							<form class="form-horizontal" role="form" action="${ctx}/flow/add" method="post">
 							  <div class="form-group">
-							    <label for="firstname" class="col-sm-2 control-label">名称</label>
+							    <label for="name" class="col-sm-2 control-label">名称</label>
 							    <div class="col-sm-10">
 							      <input type="text" class="form-control" name="name" placeholder="请输入流程名称">
+							    </div>
+							  </div>
+							  <div class="form-group">
+							  	<label for="bussTable" class="col-sm-2 control-label">业务表</label>
+							    <div class="col-sm-10">
+							      <input type="text" class="form-control" name="bussTable" placeholder="请输入业务表">
 							    </div>
 							  </div>
 							</form>
@@ -205,6 +211,7 @@
 		
 		function flushright(){
 			if(arguments[0] == 'node'){
+				$('#index_right_content').html('');
 				$.get(node_right_content_href,function(result){
 					$('#index_right_content').html(result);
 				});
