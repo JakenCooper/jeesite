@@ -47,6 +47,7 @@
 		<qualifier value="dsTx"/>
 	</bean>
 	
+	
 	<!-- 配置 Annotation 驱动，扫描@Transactional注解的类定义事务  -->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
     <!-- MyBatis end -->
@@ -98,6 +99,47 @@
 		
 		<!-- 配置监控统计拦截的filters -->
 	    <property name="filters" value="stat" /> 
+	</bean>
+	
+	
+	<bean id="dataSourceBuss" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+	    <!-- 数据源驱动类可不写，Druid默认会自动根据URL识别DriverClass -->
+	    <property name="driverClassName" value="${jdbc.driver}" />
+	    
+		<!-- 基本属性 url、user、password -->
+		<property name="url" value="${jdbc.buss.url}" />
+		<property name="username" value="${jdbc.buss.username}" />
+		<property name="password" value="${jdbc.buss.password}" />
+		
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${jdbc.pool.init}" />
+		<property name="minIdle" value="${jdbc.pool.minIdle}" /> 
+		<property name="maxActive" value="${jdbc.pool.maxActive}" />
+		
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000" />
+		
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		
+		<property name="validationQuery" value="${jdbc.testSql}" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+	</bean>
+	
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSourceBuss"/>
+	</bean>
+	
+	<!-- 定义事务 -->
+	<bean id="transactionManagerForBuss" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceBuss" />
+		<qualifier value="bussTx"/>
 	</bean>
 	
 	<!-- 数据源配置, 使用应用服务器的数据库连接池 

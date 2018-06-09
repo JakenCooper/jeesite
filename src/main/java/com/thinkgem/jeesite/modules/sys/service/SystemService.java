@@ -43,7 +43,7 @@ import com.thinkgem.jeesite.modules.sys.utils.UserUtils;
  * @version 2013-12-05
  */
 @Service
-@Transactional(readOnly = true)
+@Transactional(value="dsTx",readOnly = true)
 public class SystemService extends BaseService implements InitializingBean {
 	
 	public static final String HASH_ALGORITHM = "SHA-1";
@@ -127,7 +127,7 @@ public class SystemService extends BaseService implements InitializingBean {
 		return list;
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void saveUser(User user) {
 		if (StringUtils.isBlank(user.getId())){
 			user.preInsert();
@@ -159,7 +159,7 @@ public class SystemService extends BaseService implements InitializingBean {
 		}
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void updateUserInfo(User user) {
 		user.preUpdate();
 		userDao.updateUserInfo(user);
@@ -169,7 +169,7 @@ public class SystemService extends BaseService implements InitializingBean {
 //		systemRealm.clearAllCachedAuthorizationInfo();
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void deleteUser(User user) {
 		userDao.delete(user);
 		// 同步到Activiti
@@ -180,7 +180,7 @@ public class SystemService extends BaseService implements InitializingBean {
 //		systemRealm.clearAllCachedAuthorizationInfo();
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void updatePasswordById(String id, String loginName, String newPassword) {
 		User user = new User(id);
 		user.setPassword(entryptPassword(newPassword));
@@ -192,7 +192,7 @@ public class SystemService extends BaseService implements InitializingBean {
 //		systemRealm.clearAllCachedAuthorizationInfo();
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void updateUserLoginInfo(User user) {
 		// 保存上次登录信息
 		user.setOldLoginIp(user.getLoginIp());
@@ -260,7 +260,7 @@ public class SystemService extends BaseService implements InitializingBean {
 		return UserUtils.getRoleList();
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void saveRole(Role role) {
 		if (StringUtils.isBlank(role.getId())){
 			role.preInsert();
@@ -289,7 +289,7 @@ public class SystemService extends BaseService implements InitializingBean {
 //		systemRealm.clearAllCachedAuthorizationInfo();
 	}
 
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void deleteRole(Role role) {
 		roleDao.delete(role);
 		// 同步到Activiti
@@ -300,7 +300,7 @@ public class SystemService extends BaseService implements InitializingBean {
 //		systemRealm.clearAllCachedAuthorizationInfo();
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public Boolean outUserInRole(Role role, User user) {
 		List<Role> roles = user.getRoleList();
 		for (Role e : roles){
@@ -313,7 +313,7 @@ public class SystemService extends BaseService implements InitializingBean {
 		return false;
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public User assignUserToRole(Role role, User user) {
 		if (user == null){
 			return null;
@@ -337,7 +337,7 @@ public class SystemService extends BaseService implements InitializingBean {
 		return UserUtils.getMenuList();
 	}
 	
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void saveMenu(Menu menu) {
 		
 		// 获取父节点实体
@@ -374,7 +374,7 @@ public class SystemService extends BaseService implements InitializingBean {
 		CacheUtils.remove(LogUtils.CACHE_MENU_NAME_PATH_MAP);
 	}
 
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void updateMenuSort(Menu menu) {
 		menuDao.updateSort(menu);
 		// 清除用户菜单缓存
@@ -385,7 +385,7 @@ public class SystemService extends BaseService implements InitializingBean {
 		CacheUtils.remove(LogUtils.CACHE_MENU_NAME_PATH_MAP);
 	}
 
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void deleteMenu(Menu menu) {
 		menuDao.delete(menu);
 		// 清除用户菜单缓存
@@ -401,7 +401,7 @@ public class SystemService extends BaseService implements InitializingBean {
 	 */
 	public static boolean printKeyLoadMessage(){
 		StringBuilder sb = new StringBuilder();
-		sb.append("\r\n======================================================================\r\n");
+		sb.append("\r\n======================================================================\r");
 		sb.append("\r\n   工作流系统启动");
 		sb.append("\r\n======================================================================\r\n");
 		System.out.println(sb.toString());

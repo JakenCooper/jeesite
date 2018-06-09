@@ -10,46 +10,35 @@ public class NodePriv {
 	@Id
 	@Column(name = "id")
 	private String id;
-
 	@Column(name = "node_id")
 	private String nodeId;
-
 	@Column(name = "bus_table")
 	private String busTable;
-	
 	@Column(name = "bus_column_name")
 	private String busColumnName;
-	
 	@Column(name = "bus_model_name")
 	private String busModelName;
-	
 	@Column(name = "oper_can_read")
-	private Integer operCanRead;
-	
+	@org.hibernate.annotations.Type(type="yes_no")
+	private boolean operCanRead;
 	@Column(name = "oper_can_write")
-	private Integer operCanWrite;
-	
+	@org.hibernate.annotations.Type(type="yes_no")
+	private boolean operCanWrite;
 	@Column(name = "oper_can_readwrite")
-	private Integer operCanReadWrite;
-	
+	@org.hibernate.annotations.Type(type="yes_no")
+	private boolean operCanReadWrite;
 	@Column(name = "oper_type")
 	private Integer operType;
-	
 	@Column(name = "flow_id")
 	private String flowId;
-	
 	@Column(name = "remain_column1")
 	private String remainColumn1;
-	
 	@Column(name = "remain_column2")
 	private String remainColumn2;
-	
 	@Column(name = "remain_column3")
 	private String remainColumn3;
-	
 	@Column(name = "remain_column4")
 	private String remainColumn4;
-	
 	@Column(name = "remain_column5")
 	private String remainColumn5;
 
@@ -93,27 +82,27 @@ public class NodePriv {
 		this.busModelName = busModelName;
 	}
 
-	public Integer getOperCanRead() {
+	public boolean isOperCanRead() {
 		return operCanRead;
 	}
 
-	public void setOperCanRead(Integer operCanRead) {
+	public void setOperCanRead(boolean operCanRead) {
 		this.operCanRead = operCanRead;
 	}
 
-	public Integer getOperCanWrite() {
+	public boolean isOperCanWrite() {
 		return operCanWrite;
 	}
 
-	public void setOperCanWrite(Integer operCanWrite) {
+	public void setOperCanWrite(boolean operCanWrite) {
 		this.operCanWrite = operCanWrite;
 	}
 
-	public Integer getOperCanReadWrite() {
+	public boolean isOperCanReadWrite() {
 		return operCanReadWrite;
 	}
 
-	public void setOperCanReadWrite(Integer operCanReadWrite) {
+	public void setOperCanReadWrite(boolean operCanReadWrite) {
 		this.operCanReadWrite = operCanReadWrite;
 	}
 

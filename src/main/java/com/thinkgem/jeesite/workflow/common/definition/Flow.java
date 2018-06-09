@@ -5,26 +5,42 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
 import com.thinkgem.jeesite.workflow.common.exception.FlowIllegalArgumentException;
 
+@Entity(name="t_workflow_flow")
 public class Flow {
+	@Id
+	@Column(name="id")
 	private String id;
-	
+	@Column(name="name")
 	private String name;
-	
-//	private Set<Node> nodes = new HashSet<Node>();
-	
+	@Transient
 	private List<Node> nodes = new ArrayList<Node>();
-	
+	@Transient
 	private Node startNode;
-	
+	@Transient
 	private Map<String, Node> nodemap = new HashMap<String,Node>();
+	/**
+	 * business related
+	 * */
+	@Column(name="buss_table")
+	private String bussTable; //业务表表名
+	@Transient
+	private List<String> columns; //业务表字段
 	
 	public Flow(String id) {
 		super();
 		this.id = id;
 	}
-
+	public Flow() {
+		super();
+	}
+	
 	public Node getNodeById(String nodeId){
 		return nodemap.get(nodeId);
 	}
@@ -38,8 +54,6 @@ public class Flow {
 			startNode=node;
 		}
 	}
-	
-	
 	
 	public String getId() {
 		return id;
@@ -87,14 +101,14 @@ public class Flow {
 	public void setNodemap(Map<String, Node> nodemap) {
 		this.nodemap = nodemap;
 	}
+	
+	public List<String> getColumns() {
+		return columns;
+	}
 
-	
-	
-	/**
-	 * business related
-	 * */
-	private String bussTable;
-	
+	public void setColumns(List<String> columns) {
+		this.columns = columns;
+	}
 
 	public String getBussTable() {
 		return bussTable;
@@ -105,7 +119,7 @@ public class Flow {
 	}
 
 	public static void main(String[] args) {
-		Node node1 = new Node("n1","n1");
+	/*	Node node1 = new Node("n1","n1");
 		node1.setReadyToBegin(true);
 		Node node2 = new Node("n2","n2");
 		Node node3 = new Node("n3","n3");
@@ -114,6 +128,6 @@ public class Flow {
 		node1.addNodeSec(new NodeSec("n1_s1",node1.getId(),node2.getId()));
 		node2.addNodeSec(new NodeSec("n2_s1",node2.getId(),node3.getId()));
 		node2.addNodeSec(new NodeSec("n2_s2",node2.getId(),node4.getId()));
-		node3.addNodeSec(new NodeSec("n3_s1",node3.getId(),node4.getId()));
+		node3.addNodeSec(new NodeSec("n3_s1",node3.getId(),node4.getId()));*/
 	}
 }

@@ -11,6 +11,15 @@
 <script type="text/javascript"
 	src="${ctxStatic}/bootstrap3/js/bootstrap.js"></script>
 <script type="text/javascript" src="${ctxStatic}/workflow/common.js"></script>
+<style type="text/css">
+	.hide{
+		display:none;
+	}
+	/**清除浮动*/
+	.clear{
+		clear:both;
+	}
+</style>
 </head>
 
 <body>

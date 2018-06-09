@@ -13,7 +13,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@ImportResource("classpath*:spring-context.xml")
+@ImportResource("classpath*:spring-context*.xml")
 @ComponentScan(basePackages={"com.thinkgem.jeesite.workflow.service","com.thinkgem.jeesite.workflow.dao"})
 @Import(RepoConfig.class)
 @EnableTransactionManagement(proxyTargetClass=true)

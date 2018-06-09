@@ -3,15 +3,48 @@ package com.thinkgem.jeesite.workflow.common.definition;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+@Entity(name="t_workflow_node")
 public class Node {
 
+	@Id
+	@Column(name="id")
 	private String id;
-	
+	@Column(name="name")
 	private String name;
-	
+	@Column(name="node_desc")
 	private String desc;
-	
+	@Column(name="flow_id")
 	private String flowid;
+	@Transient
+	private List<NodeSec> secs = new ArrayList<NodeSec>();
+	
+	@Column(name="can_get_back")
+	@org.hibernate.annotations.Type(type="yes_no")
+	private boolean canGetBack;
+	@Column(name="ready_to_begin")
+	@org.hibernate.annotations.Type(type="yes_no")
+	private boolean readyToBegin;
+	@Column(name="ready_to_finish")
+	@org.hibernate.annotations.Type(type="yes_no")
+	private boolean readyToFinish;
+	@Column(name="can_flow_back")
+	@org.hibernate.annotations.Type(type="yes_no")
+	private boolean canFlowBack;
+
+	public Node(String id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	
+	public Node() {
+		super();
+	}
 	
 	public String getFlowid() {
 		return flowid;
@@ -29,21 +62,9 @@ public class Node {
 		this.desc = desc;
 	}
 	
-	
-
-	public Node() {
-		super();
-	}
-
-
-
-	private List<NodeSec> secs = new ArrayList<NodeSec>();
-	
 	public void addNodeSec(NodeSec ns){
 		secs.add(ns);
 	}
-	
-	private boolean canGetBack;
 	
 	
 	public boolean isCanGetBack() {
@@ -54,12 +75,14 @@ public class Node {
 		this.canGetBack = canGetBack;
 	}
 
-	private boolean readyToBegin;
-	
-	private boolean readyToFinish;
-	
-	private boolean canFlowBack;
-	
+	public boolean isReadyToFinish() {
+		return readyToFinish;
+	}
+
+	public void setReadyToFinish(boolean readyToFinish) {
+		this.readyToFinish = readyToFinish;
+	}
+
 	public boolean isCanFlowBack() {
 		return canFlowBack;
 	}
@@ -74,20 +97,6 @@ public class Node {
 
 	public void setReadyToBegin(boolean readyToBegin) {
 		this.readyToBegin = readyToBegin;
-	}
-
-	public boolean isReadyToFinish() {
-		return readyToFinish;
-	}
-
-	public void setReadyToFinish(boolean readyToFinish) {
-		this.readyToFinish = readyToFinish;
-	}
-
-	public Node(String id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
 	}
 
 	public String getId() {
@@ -118,7 +127,6 @@ public class Node {
 	public void setSecs(List<NodeSec> secs) {
 		this.secs = secs;
 	}
-
 
 	@Override
 	public String toString() {

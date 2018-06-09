@@ -19,6 +19,9 @@ public class NodePrivServiceTest {
 	@Autowired
 	private NodePrivService service;
 	
+	@Autowired
+	private MetadataService mds;
+	
 //	@Test
 	public void findall(){
 		List<NodePriv> nps = service.getAllNodePriv();
@@ -27,10 +30,15 @@ public class NodePrivServiceTest {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void addone(){
 		NodePriv np = new NodePriv();
 		np.setId(CommonUtils.genuuid());
 		service.addOne(np);
+	}
+	
+	@Test
+	public void metadata(){
+		mds.getMetadataByTableName("","oa_secret_send");
 	}
 }

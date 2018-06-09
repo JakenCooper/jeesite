@@ -17,10 +17,10 @@ import com.thinkgem.jeesite.common.utils.StringUtils;
  * @author ThinkGem
  * @version 2014-05-16
  */
-@Transactional(readOnly = true)
+@Transactional(value="dsTx",readOnly = true)
 public abstract class TreeService<D extends TreeDao<T>, T extends TreeEntity<T>> extends CrudService<D, T> {
 	
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void save(T entity) {
 		
 		@SuppressWarnings("unchecked")

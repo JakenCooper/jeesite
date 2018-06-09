@@ -16,7 +16,7 @@ import com.thinkgem.jeesite.modules.cms.entity.ArticleData;
  * @version 2013-01-15
  */
 @Service
-@Transactional(readOnly = true)
+@Transactional(value="dsTx",readOnly = true)
 public class ArticleDataService extends CrudService<ArticleDataDao, ArticleData> {
 
 }

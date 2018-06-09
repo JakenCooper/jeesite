@@ -92,11 +92,11 @@
 	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	                <h4 class="modal-title" id="nodesec_manager_label">节点管理</h4>
 	            </div>
-	            <div class="modal-body">
+	            <div class="modal-body" style="height:700px">
 					<ul class="nav nav-tabs" id="nodesec_tab_compo">
-					  <li class="active"><a href="#nodesec_nextstep" data-toggle="tab">下一步设置</a></li>
-					  <li><a href="#nodesec_datapriv" data-toggle="tab">数据权限设置</a></li>
-					  <li><a href="#nodesec_rolepriv" data-toggle="tab">角色权限设置</a></li>
+					  <li class="active"><a href="#nodesec_nextstep" data-toggle="tab" onclick="nodedetail_tab_exchange('next')">下一步设置</a></li>
+					  <li><a href="#nodesec_datapriv" data-toggle="tab" onclick="nodedetail_tab_exchange('datapriv')">数据权限设置</a></li>
+					  <li><a href="#nodesec_rolepriv" data-toggle="tab" onclick="nodedetail_tab_exchange('rolepriv')">角色权限设置</a></li>
 					</ul>
 					<!-- ##################################################################### -->
 					<!--nodesec begin -->
@@ -106,6 +106,7 @@
 					    		<div class="row">
 									<div class="col-sm-2">
 										<form class="form-horizontal" role="form" action="" method="post" id="nodesc_left_form">
+											<h4 class="text-center">【已选节点】</h4><hr/>
 											<ul class="list-group" id="nodesec_left_form_ul">
 											<c:if test="${!empty flow.nodes}">
 												<c:forEach items="${flow.nodes}" var="node">
@@ -122,25 +123,14 @@
 										</form>
 									</div>
 									
-									<div class="col-sm-1">
+									<div class="col-sm-1" style="margin-left:5px">
+										<h4>&nbsp;</h4><hr/>
 										<button class="btn btn-success btn-md" onclick="nodesc_exchange(1)"><<</button>
 										<button class="btn btn-danger btn-md" style="margin-top:10px"  >>></button><br/>
 									</div>
-									<script type="text/javascript">
-										function nodesc_exchange(){
-											$('#nodesc_right_form').find(':checked').each(function(index,ele){
-												$('#nodesec_left_form_ul').append('<li class="list-group-item text-center"><label><input type="checkbox" value="'+$(ele).val()+'"/>   '
-													+$(ele).attr('data-name')+'</label></li>');
-												//+'<input type="checkbox" value="'+$(ele).val()+'"/>&nbsp;&nbsp;'+$(ele).attr('data-name')
-												//+'<input type="text" name="aaa"/>'
-												//+'</label></li>');
-												//$('#nodesec_left_form_ul').append('');
-											});
-										}
-									</script>
 									
 									<div class="col-sm-2">
-										
+										<h4 class="text-center">【可选节点】</h4><hr/>
 										<form class="form-horizontal" role="form" action="" method="post" id="nodesc_right_form">
 										<ul class="list-group">
 											<c:if test="${!empty flow}">
@@ -161,7 +151,20 @@
 					    	</div>
 					    </div>
 					    <div class="tab-pane fade" id="nodesec_datapriv">
-					    	<h3>用户权限设置</h3>
+					    	<div class="container">
+					    		<table class="table">
+									<thead>
+										<tr>
+											<td>数据列</td>
+											<td>可以读取</td>
+											<td>可以编辑</td>
+										</tr>
+									</thead>
+									<tbody id="nodesec_datapriv_tbody">
+										
+									</tbody>
+								</table>
+					    	</div>
 					    </div>
 					    <div class="tab-pane fade" id="nodesec_rolepriv">
 					    	<h3>角色权限设置</h3>
@@ -170,44 +173,38 @@
 					<!-- ##################################################################### -->
 					<!--nodesec end -->
 	            </div>
-	            <div class="modal-footer">
+	            <div class="modal-footer" id="nodedetail_footer">
 	                <button type="button" class="btn btn-default" id="nodedesc_close_btn" data-dismiss="modal">关闭</button>
 	                <button type="button" class="btn btn-primary" onclick="nodedesc_add_submit()">提交更改</button>
+	                <button type="button" class="btn btn-primary" onclick="data_priv_submit()">提交更改</button>
+	                <button type="button" class="btn btn-primary" onclick="role_priv_submit()">提交更改</button>
 	            </div>
 	            <script type="text/javascript">
-	            	function nodedesc_add_submit(){
-	            		var nodeids = new Array();
-	            		$('#nodesec_left_form_ul').find('input').each(function(index,ele){
-	            			nodeids.push($(ele).val());
-	            		});
-	            		if(nodeids.length == 0){
-	            			alert('没有选择任何节点！');
-	            			return false;
+	            	function nodedetail_btn_control(){
+	            		$('#nodedetail_footer>button:lt(0)').hide();
+	            		if(arguments.length>0){
+	            			$('#nodedetail_footer>button:eq('+arguments[0]+')').show();
 	            		}
-	            		var subdata = {
-	            			ids : nodeids,
-	            			nodeid : flow_node_curr_id,
-	            			flowid : '${flow.id}'
-	            		};
-	            		var subdatastr = JSON.stringify(subdata);
-	            		var suburl = rootpath + '/nodesec/add';
-	            		var tag = false;
-	            		$.ajax({
-	            			url:suburl,
-							type:'post',
-							data:subdatastr,
-							dataType:'json',
-							contentType:'application/json; charset=UTF-8',
-							success:function(){
-								$('#nodesec_manager_modal').modal('hide');
-								tag=true;
-							}
-	            		});
-	            		$('#nodesec_manager_modal').on('hidden.bs.modal', function(){
-							if(tag){
-								flushright('node');
-							}
-						})
+	            	}
+	            	function nodedetail_tab_exchange(){
+	            		if(arguments[0] == 'next'){
+	            			nodedetail_btn_control('1');
+	            		}else if(arguments[0] == 'datapriv'){
+	            			nodedetail_btn_control('2');
+	            			$('#nodesec_datapriv .container').hide();
+	            			var nodesec_datapriv_url = rootpath+'/workflow/definition/nodepriv_part';
+	            			var subdata = {
+            	     			nodeid : flow_node_curr_id,
+            	     			flowid : '${flow.id}'
+            	     		};
+            	      		var subdatastr = JSON.stringify(subdata);
+            	      		$.get(nodesec_datapriv_url,subdatastr,function(data){
+            	      			$('#nodesec_datapriv .container').html('').html(data);
+            	      		});
+            	      		$('#nodesec_datapriv .container').show();
+	            		}else{
+	            			nodedetail_btn_control('3');
+	            		}
 	            	}
 	            </script>
 	        </div><!-- /.modal-content -->
@@ -246,8 +243,6 @@
 		
 		function nodedetail(){
 			flow_node_curr_id = arguments[0];
-			
-			
 			var subdata = {
      			nodeid : flow_node_curr_id,
      			flowid : '${flow.id}'
@@ -267,9 +262,9 @@
 							$('#nodesec_left_form_ul').append('<li class="list-group-item text-center"><label><input type="checkbox" value="'+nss[i].id+'"/>   '
 														+nss[i].nextNodeName+'</label></li>');
 						}
-					}
-				});
-			
+				}
+			});
+      		nodedetail_btn_control('1');
 			//$('#nodesec_tab_compo').find('li:eq(0)').find('a').attr('href',rootpath+'/workflow/definition/nodesecadd?nodeid='
 			//	+flow_node_curr_id+'&flowid=${flow.id}');
 			/* $('#nodesec_tab_compo').find('li:eq(1)').find('a').attr('href',rootpath+'/node/manage/datapriv/?nodeid='+flow_node_curr_id);
@@ -279,6 +274,51 @@
 		}
 		
 		
+		function nodedesc_add_submit(){
+    		var nodeids = new Array();
+    		$('#nodesec_left_form_ul').find('input').each(function(index,ele){
+    			nodeids.push($(ele).val());
+    		});
+    		if(nodeids.length == 0){
+    			alert('没有选择任何节点！');
+    			return false;
+    		}
+    		var subdata = {
+    			ids : nodeids,
+    			nodeid : flow_node_curr_id,
+    			flowid : '${flow.id}'
+    		};
+    		var subdatastr = JSON.stringify(subdata);
+    		var suburl = rootpath + '/nodesec/add';
+    		var tag = false;
+    		$.ajax({
+    			url:suburl,
+				type:'post',
+				data:subdatastr,
+				dataType:'json',
+				contentType:'application/json; charset=UTF-8',
+				success:function(){
+					$('#nodesec_manager_modal').modal('hide');
+					tag=true;
+				}
+    		});
+    		$('#nodesec_manager_modal').on('hidden.bs.modal', function(){
+				if(tag){
+					flushright('node');
+				}
+			})
+    	}
+		
+		function nodesc_exchange(){
+			$('#nodesc_right_form').find(':checked').each(function(index,ele){
+				$('#nodesec_left_form_ul').append('<li class="list-group-item text-center"><label><input type="checkbox" value="'+$(ele).val()+'"/>   '
+					+$(ele).attr('data-name')+'</label></li>');
+				//+'<input type="checkbox" value="'+$(ele).val()+'"/>&nbsp;&nbsp;'+$(ele).attr('data-name')
+				//+'<input type="text" name="aaa"/>'
+				//+'</label></li>');
+				//$('#nodesec_left_form_ul').append('');
+			});
+		}
 		
 	</script>
 </div>

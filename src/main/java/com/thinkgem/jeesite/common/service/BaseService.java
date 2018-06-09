@@ -20,7 +20,7 @@ import com.thinkgem.jeesite.modules.sys.entity.User;
  * @author ThinkGem
  * @version 2014-05-16
  */
-@Transactional(readOnly = true)
+@Transactional(value="dsTx",readOnly = true)
 public abstract class BaseService {
 	
 	/**

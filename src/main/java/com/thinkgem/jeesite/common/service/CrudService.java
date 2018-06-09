@@ -17,7 +17,7 @@ import com.thinkgem.jeesite.common.persistence.Page;
  * @author ThinkGem
  * @version 2014-05-16
  */
-@Transactional(readOnly = true)
+@Transactional(value="dsTx",readOnly = true)
 public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>> extends BaseService {
 	
 	/**
@@ -69,7 +69,7 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	 * 保存数据（插入或更新）
 	 * @param entity
 	 */
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void save(T entity) {
 		if (entity.getIsNewRecord()){
 			entity.preInsert();
@@ -84,7 +84,7 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	 * 删除数据
 	 * @param entity
 	 */
-	@Transactional(readOnly = false)
+	@Transactional(value="dsTx",readOnly = false)
 	public void delete(T entity) {
 		dao.delete(entity);
 	}
