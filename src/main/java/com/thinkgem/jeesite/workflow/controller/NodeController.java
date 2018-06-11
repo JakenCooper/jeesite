@@ -68,7 +68,8 @@ public class NodeController {
 	@RequestMapping("/workflow/definition/nodepriv_part")
 	@ModelAttribute("model")
 	public List<NodePriv> nodeprivpart(@RequestBody  NodePrivModel nodePrivModel){
-		String flowid
+//		String flowid
+		return null;
 	}
 	
 	
