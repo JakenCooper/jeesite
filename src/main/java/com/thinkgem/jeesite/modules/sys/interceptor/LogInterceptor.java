@@ -45,6 +45,7 @@ public class LogInterceptor extends BaseService implements HandlerInterceptor {
 		/*if (modelAndView != null){
 			logger.info("ViewName: " + modelAndView.getViewName());
 		}*/
+		System.out.println("referer------ "+request.getHeader("Referer"));
 	}
 
 	@Override

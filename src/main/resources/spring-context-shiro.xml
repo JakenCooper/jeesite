@@ -15,9 +15,10 @@
 		<constructor-arg>
 			<value>
 				/static/** = anon
+				${adminPath}/flow/** = anon
 				/userfiles/** = anon
 				${adminPath}/cas = cas
-				${adminPath}/login = authc
+				${adminPath}/login = anon
 				${adminPath}/logout = logout
 				${adminPath}/** = user
 				/act/editor/** = user

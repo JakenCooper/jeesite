@@ -57,6 +57,13 @@ cnpm install webpack-dev-server --save-dev
 
 webpack --config webpack/webpack.config.js
 
+0613
+https://segmentfault.com/q/1010000004185137 [react事件传参]
+https://www.cnblogs.com/xiekeli/p/5607107.html [token初步]
+https://www.cnblogs.com/loveis715/p/4592246.html [CORS的各种介绍]
+https://blog.csdn.net/saytime/article/details/51549888 [CORS具体如何实现]
+https://blog.csdn.net/u010256388/article/details/68491509 [HTTP请求和响应报文解析]
+https://stackoverflow.com/questions/30142361/react-js-uncaught-typeerror-this-props-data-map-is-not-a-function [reactjs foreach json data]
 
 ---------------------------------------
 target enhance:

@@ -57,37 +57,7 @@
 						<!-- .panel-collapse和.collapse标明折叠元素 .in表示要显示出来 -->
 						<div id="collapseListGroup1" class="panel-collapse collapse in"
 							role="tabpanel" aria-labelledby="collapseListGroupHeading1">
-							<ul class="list-group" id="flow_list">
-								<li class="list-group-item text-center">
-									<!-- 利用data-target指定URL -->
-									<button class="menu-item-left btn btn-md btn-primary" data-toggle="modal" data-target="#flow_add_modal">
-										<span class="glyphicon  glyphicon-plus"></span>&nbsp;添 加 流 程
-									</button>
-								</li>
-								<!--  
-								<a data-href="${ctx}/flow" data-target="index_right_content" 
-									data-hrefarg="" onclick="jump()"
-									class="list-group-item text-center text-lg">
-									<h4 class="list-group-item-heading">
-										<span class="glyphicon glyphicon-list">&nbsp;</span>公文签收
-									</h4>
-								</a>-->
-								
-								<!-- 
-								<c:if test="${!empty allflow}">
-									<c:forEach var="flow" items="${allflow}">
-										<a data-href="${ctx}/workflow/definition/flowIndex" data-target="index_right_content" 
-											onclick="flowdetail('${flow.id}')"
-											class="list-group-item text-center text-lg">
-											<h4 class="list-group-item-heading">
-												<span class="glyphicon glyphicon-list">&nbsp;</span>${flow.name}
-											</h4>
-										</a>
-									</c:forEach>
-								</c:if>
-								 -->
-								 
-							</ul>
+							
 						</div>
 					</div>
 					<!--panel end-->
@@ -170,6 +140,7 @@
 			
 		</div>
 	</div>
+	<div id="testdiv"></div>
 	<script>
 		var node_right_content_href='';
 		
@@ -180,6 +151,7 @@
 				$(this).find("span").toggleClass("glyphicon-chevron-down");
 				$(this).find("span").toggleClass("glyphicon-chevron-up");
 			});
+			/*
 			$.ajax({
 				url:'${ctx}/flow/all',
 				type:'get',
@@ -202,7 +174,7 @@
 				error:function(data){
 					alert(data);
 				}
-			});
+			});*/
 		});
 		
 		function submitFlow(){
@@ -228,5 +200,9 @@
 		}
 		
 	</script>
+	<script>
+		window.basepath = '${ctx}';
+	</script>
+	<script src="${ctxStatic}/bundle.js"></script>
 </body>
 </html>

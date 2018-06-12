@@ -2,6 +2,8 @@ package com.thinkgem.jeesite.workflow.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +35,10 @@ public class FlowController {
 	
 	@RequestMapping("/flow/all")
 	@ResponseBody
-	public List<Flow> flowall(){
+	public List<Flow> flowall(HttpServletResponse response){
+		response.addHeader("Access-Control-Allow-Origin", "http://localhost:9090");
+		response.setHeader("Access-Control-Allow-Methods","*");
+		response.setHeader("Access-Control-Allow-Credentials","true");
 		return defService.getAllFlowSimple();
 	}
 	
